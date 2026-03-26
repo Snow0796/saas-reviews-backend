@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import tenants, users, feedbacks, cycles, relatorio, metricas, comparativo, formulario
+import os
 
 app = FastAPI(
     title="SaaS Reviews API",
@@ -8,7 +9,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS — permite o frontend acessar o backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://localhost:3000", "https://saas-reviews-frontend.vercel.app"],
@@ -29,9 +29,9 @@ app.include_router(formulario.router, prefix="/api/v1", tags=["Formulário Públ
 @app.get("/")
 def root():
     return {"status": "ok", "mensagem": "API rodando com sucesso!"}
-    @app.get("/debug")
-    def debug():
-        import os
+
+@app.get("/debug")
+def debug():
     return {
         "supabase_url": os.getenv("SUPABASE_URL", "NAO ENCONTRADA"),
         "supabase_key_inicio": os.getenv("SUPABASE_KEY", "NAO ENCONTRADA")[:20],
