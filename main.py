@@ -30,8 +30,8 @@ app.include_router(formulario.router, prefix="/api/v1", tags=["Formulário Públ
 def root():
     return {"status": "ok", "mensagem": "API rodando com sucesso!"}
     @app.get("/debug")
-def debug():
-    import os
+    def debug():
+        import os
     return {
         "supabase_url": os.getenv("SUPABASE_URL", "NAO ENCONTRADA"),
         "supabase_key_inicio": os.getenv("SUPABASE_KEY", "NAO ENCONTRADA")[:20],
